@@ -3,6 +3,8 @@
 namespace Softce\Type\Http\Controllers;
 
 use Mage2\Ecommerce\Http\Controllers\Admin\AdminController;
+use Mage2\Ecommerce\DataGrid\Facade as DataGrid;
+
 use Softce\Type\Http\Requests\TypeRequest;
 use Softce\Type\Module\Type;
 use File;
@@ -16,7 +18,6 @@ class TypeController extends AdminController
     public function __construct()
     {
         $this->middleware(['admin.auth', 'main_lang']);
-        $this->path_slide = 'uploads/slider';
     }
 
     /**
@@ -24,19 +25,45 @@ class TypeController extends AdminController
      */
     public function index()
     {
+        $dataGrid = DataGrid::model(Type::query()->orderBy('id','desc'))
+            ->column('id',['sortable' => true])
+            ->column('name', ['label' => 'Название'])
+            ->linkColumn('', [], function ($model) {
+                return "
+                
+                <a href='" . route('admin.typeofproduct.edit', $model->id) . "'  class='btn bg-purple'><i class ='fa fa-edit'></i></a>
+                <form id='admin-typeofproduct-destroy-" . $model->id . "' class='inline-form'
+                method='POST'
+                action='" . route('admin.typeofproduct.destroy', $model->id) . "'>
+                    <input name='_method' type='hidden' value='DELETE' />
+                    " . csrf_field() . "
+                    <a href='#' data-destroy=\"jQuery('#admin-typeofproduct-destroy-$model->id').submit()\"  class='btn btn-danger js-delete' >
+                        <i class ='fa fa-trash'></i>
+                    </a>
+                </form>
+            ";
+            });
 
+        return view('typeofproduct::admin.index')
+            ->with('dataGrid', $dataGrid);
+    }
 
-        return view('slider::admin-slide')
-            ->with('slides', Type::all())
-            ->with('path_slide', $this->path_slide);
+    /**
+     * Show the form for creating a new type of product.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('typeofproduct::admin.create');
     }
 
     /**
      * Create new type of product
-     * @param TipeRequest $request
+     * @param TypeRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(TipeRequest $request)
+    public function store(TypeRequest $request)
     {
         $new_slide = $request->file('new_slide');
 
@@ -57,11 +84,11 @@ class TypeController extends AdminController
 
     /**
      * Update type of product
-     * @param TipeRequest $request
+     * @param TypeRequest $request
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(TipeRequest $request, $id)
+    public function update(TypeRequest $request, $id)
     {
         $slide = Type::find($id);
         if($slide){

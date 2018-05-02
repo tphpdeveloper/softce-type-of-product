@@ -7,6 +7,6 @@ Route::group([
     'middleware' => ['web']
     ],function(){
 
-    Route::resource( '/type', 'TypeController', [ 'as' => 'admin', 'only' => ['index', 'store', 'update', 'destroy'] ] );
+    Route::resource( '/type', 'TypeController', [ 'as' => 'admin' ] );
 
 });
