@@ -1,0 +1,19 @@
+{
+    "name": "softce/type-of-product",
+    "description": "Module for working with the type of product. Adds the keys of the created product types to the product list table",
+    "authors": [
+        {
+            "name": "tphpdeveloper",
+            "email": "igorkutsan@ukr.net"
+        }
+    ],
+    "require": {
+        "php" : ">=7.0",
+        "laravel/framework": "5.5.*"
+
+    },
+    "require-dev":{
+        "phpunit/phpunit": "*"
+    }
+
+}
