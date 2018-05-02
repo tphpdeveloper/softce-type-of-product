@@ -14,7 +14,7 @@
     "psr-4": {
         ... ,
 
-        "Softce\\Typeofproduct\\" : "vendor/softce/type-of-product/src"
+        "Softce\\Type\\" : "vendor/softce/type-of-product/src"
     }
 }
 ```
@@ -34,7 +34,7 @@ composer update softce/type-of-product
 
 'providers' => [
     ... ,
-    Softce\Typeofproduct\Providers\TypeofproductServiceProvider::class,
+    Softce\Type\Providers\TypeServiceProvider::class,
 ]
 
 
@@ -66,11 +66,11 @@ php artisan migrate
 
 1.
 //in app.php
-Softce\Typeofproduct\Providers\TypeofproductServiceProvider::class,
+Softce\Type\Providers\TypeServiceProvider::class,
 
 2.
 //in composer.json
-"Softce\\Slider\\": "vendor/softce/type-of-product/src"
+"Softce\\Type\\": "vendor/softce/type-of-product/src"
 
 3.
 //in console
