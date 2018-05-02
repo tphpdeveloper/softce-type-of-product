@@ -1,6 +1,6 @@
 <?php
 
-namespace Softce\Typeofproduct\Module;
+namespace Softce\Type\Module;
 
 use Illuminate\Database\Eloquent\Model;
 

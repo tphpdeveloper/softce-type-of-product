@@ -8,7 +8,7 @@
                         <i class="fa fa-list-ul"></i>
                         <span class="main-title-wrap">Список типов товаров</span>
                     </div>
-                    <a style="" href="{{ route('admin.typeofproduct.create') }}" class="btn btn-info float-right">
+                    <a style="" href="{{ route('admin.type.create') }}" class="btn btn-info float-right">
                         <i class="fa fa-plus"></i>
                         Создать тип
                     </a>

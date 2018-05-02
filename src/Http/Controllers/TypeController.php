@@ -28,16 +28,17 @@ class TypeController extends AdminController
         $dataGrid = DataGrid::model(Type::query()->orderBy('id','desc'))
             ->column('id',['sortable' => true])
             ->column('name', ['label' => 'Название'])
+            ->column('icon', ['label' => 'Знак клавиши'])
             ->linkColumn('', [], function ($model) {
                 return "
                 
-                <a href='" . route('admin.typeofproduct.edit', $model->id) . "'  class='btn bg-purple'><i class ='fa fa-edit'></i></a>
-                <form id='admin-typeofproduct-destroy-" . $model->id . "' class='inline-form'
+                <a href='" . route('admin.type.edit', $model->id) . "'  class='btn bg-purple'><i class ='fa fa-edit'></i></a>
+                <form id='admin-type-destroy-" . $model->id . "' class='inline-form'
                 method='POST'
-                action='" . route('admin.typeofproduct.destroy', $model->id) . "'>
+                action='" . route('admin.type.destroy', $model->id) . "'>
                     <input name='_method' type='hidden' value='DELETE' />
                     " . csrf_field() . "
-                    <a href='#' data-destroy=\"jQuery('#admin-typeofproduct-destroy-$model->id').submit()\"  class='btn btn-danger js-delete' >
+                    <a href='#' data-destroy=\"jQuery('#admin-type-destroy-$model->id').submit()\"  class='btn btn-danger js-delete' >
                         <i class ='fa fa-trash'></i>
                     </a>
                 </form>
@@ -65,21 +66,27 @@ class TypeController extends AdminController
      */
     public function store(TypeRequest $request)
     {
-        $new_slide = $request->file('new_slide');
-
-        if($new_slide) {
-            foreach($new_slide as $slide) {
-                $name_file = $slide->getClientOriginalName();
-                $slide->move(public_path($this->path_slide), $name_file);
-                Type::create([
-                    'path' => $name_file
-                ]);
-            }
-
-            return redirect()->route('admin.slider.index')->with('notificationText', 'Слайд(и) успешно добавлен(и)');
+        $data = $request->except('_token');
+        $data['icon'] = mb_substr(mb_strtoupper($data['name'][app()->getLocale()]), 0, 1);
+        $page = Type::create($data);
+        if($page) {
+            return redirect()->route('admin.type.index')->with('notificationText', 'Тип товаров успешно создан');
         }
+        return redirect()->route('admin.type.index')->with('errorText', 'Ошибка создания типа товаров. Пвторите попытку позже.');
 
-        return redirect()->route('admin.slider.index')->with('errorText', 'Для создания слайд(а/ов) нужно изображение');
+    }
+
+    /**
+     * Show the form for editing the specified type of products.
+     * @param $id
+     * @return $this
+     */
+    public function edit($id)
+    {
+        $model = Type::find($id);
+        return view('typeofproduct::admin.edit')
+            ->with('model', $model)
+            ;
     }
 
     /**
@@ -90,23 +97,16 @@ class TypeController extends AdminController
      */
     public function update(TypeRequest $request, $id)
     {
-        $slide = Type::find($id);
-        if($slide){
-            $new_slide = $request->file('slide');
-            $slide->text = $request->text;
+        $data = $request->except('_token');
+        $data['icon'] = mb_substr(mb_strtoupper($data['name'][app()->getLocale()]), 0, 1);
 
-            if($new_slide){
-                File::delete(public_path($this->path_slide.'/'.$slide->path));
-
-                $name_file = $new_slide->getClientOriginalName();
-                $new_slide->move(public_path($this->path_slide), $name_file);
-                $slide->path = $name_file;
-            }
-            $slide->save();
-
-            return redirect()->route('admin.slider.index')->with('notificationText', 'Слайд успешно обновлен');
+        $model = Type::find($id);
+        $model->update($data);
+        if($model) {
+            return redirect()->route('admin.type.index')->with('notificationText', 'Тип товаров успешно обновлен');
         }
-        return redirect()->route('admin.slider.index')->with('errorText', 'Ошибка обновления слайда. Повторите запрос позже!!!');
+        return redirect()->route('admin.type.index')->with('errorText', 'Ошибка обновления типа товаров. Пвторите попытку позже.');
+
     }
 
     /**
@@ -116,13 +116,12 @@ class TypeController extends AdminController
      */
     public function destroy($id)
     {
-        $slide = Type::find($id);
-        if($slide){
-            File::delete(public_path($this->path_slide.'/'.$slide->path));
-            $slide->delete();
-            return redirect()->route('admin.slider.index')->with('notificationText', 'Слайд успешно удален');
+        $model = Type::find($id);
+        if($model){
+            $model->delete();
+            return redirect()->route('admin.type.index')->with('notificationText', 'Тип товаров успешно удален');
         }
-        return redirect()->route('admin.slider.index')->with('errorText', 'Ошибка удаления слайда. Повторите запрос позже!!!');
+        return redirect()->route('admin.type.index')->with('errorText', 'Ошибка удаления типа товаров. Повторите попытку позже.');
     }
 
 }
