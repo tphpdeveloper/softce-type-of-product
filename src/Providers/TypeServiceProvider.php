@@ -23,6 +23,16 @@ class TypeServiceProvider extends ServiceProvider
                 'o' => 0
             ]);
         }
+
+//        $this->publishes([
+//            dirname(__DIR__) . '\views\admin'       => dirname(public_path()) . '/modules/mage2/ecommerce/resources/views/admin/type',
+//        ], 'view.type');
+//        $this->publishes([
+//            dirname(__DIR__) . '\Http\Controllers'  => dirname(public_path()) . '/modules/mage2/ecommerce/src/Http/Controllers/Admin',
+//        ],'controller.type');
+//        $this->publishes([
+//            dirname(__DIR__) . '\Http\Requests'     => dirname(public_path()) . '/modules/mage2/ecommerce/src/Http/Requests',
+//        ],'requests.type');
     }
 
     public function register(){

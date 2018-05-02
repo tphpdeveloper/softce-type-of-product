@@ -13,8 +13,6 @@ use DB;
 class TypeController extends AdminController
 {
 
-    private $path_slide = '';
-
     public function __construct()
     {
         $this->middleware(['admin.auth', 'main_lang']);
