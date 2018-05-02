@@ -20,3 +20,13 @@
         </div>
     </div>
 @stop
+@push('scripts')
+    <script>
+        $('.js-add_to_type').click(function(e){
+            e.preventDefault();
+            e.stopPropagation();
+
+
+        });
+    </script>
+@endpush
