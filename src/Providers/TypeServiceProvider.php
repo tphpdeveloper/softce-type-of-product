@@ -30,7 +30,6 @@ class TypeServiceProvider extends ServiceProvider
 
     }
 
-
     public function register()
     {
         $this->app->singleton(TypeButton::class, function(){
