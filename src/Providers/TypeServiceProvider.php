@@ -4,6 +4,9 @@ namespace Softce\Type\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use DB;
+use Softce\Type\Module\Type;
+use Softce\Type\TypeButton\BuildButton;
+use Softce\Type\TypeButton\Contracts\TypeButton;
 
 class TypeServiceProvider extends ServiceProvider
 {
@@ -35,8 +38,11 @@ class TypeServiceProvider extends ServiceProvider
 //        ],'requests.type');
     }
 
-    public function register(){
-        //
+    public function register()
+    {
+        $this->app->singleton(TypeButton::class, function(){
+            return new BuildButton(Type::all());
+        });
     }
 
 }
