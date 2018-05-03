@@ -121,7 +121,7 @@ php artisan config:cache
 
 7.
 //delete migration -> 2018_05_02_144153_create_types_table 
-//and 2018_05_02_150806_create_product_types_table
+//and 2018_05_02_150806_create_product_type_table
 
 8.
 //delete row in admin_menus table -> where name 'Типы товаров'
