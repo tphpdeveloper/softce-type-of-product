@@ -53,9 +53,42 @@ php artisan migrate
 
 **5.**
 ```php
+
 //for show page slider, in code add next row
 
-{{ route('admin.typeofproduct.index') }}
+{{ route('admin.type.index') }}
+
+```
+
+#How to use in ProductController
+
+**1.**
+```php
+
+//for use functional
+//use dependency injection in the method of building a list of products like
+
+ public function index(... , TypeButton $typebutton){
+ ...
+    $typebutton->getButton($model->id)
+    
+    return view(....)
+        ->with('dataGrid', ...)
+        ->with('typeofproduct_script', $typeofproduct->getScript());
+ }
+ 
+```
+
+**2.**
+```php
+//in view after
+
+{!! $dataGrid->render() !!}
+
+//write
+{{ $typeofproduct_script }}
+ 
+
 
 ```
 
