@@ -3,7 +3,7 @@
 namespace Softce\Type\Module;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Collection;
+use Mage2\Ecommerce\Models\Database\Product;
 
 class Type extends Model
 {
@@ -15,17 +15,12 @@ class Type extends Model
         'name' => 'array'
     ];
 
-
-    public function createButton(Collection $types, $product_id){
-        $buttons = '';
-        foreach($types as $type){
-            $buttons .= view('typeofproducts::admin.button_group.button')
-                ->with('type_id', $type->id)
-                ->with('icon', $type->icon)
-                ->with('color', $type->color)
-                ->with('product_id', $product_id)
-                ->render();
-        }
-        return $buttons;
+    public function product(){
+        return $this->belongsToMany(Product::class)->withPivot(['product_id', 'type_id']);
     }
+
+    public function product_type(){
+        return $this->hasMany(ProductType::class);
+    }
+
 }

@@ -18,4 +18,10 @@ interface TypeButton
      * @return string
      */
     public function getButton($product_id);
+
+    /**
+     * Returned view with javaScript
+     * @return view
+     */
+    public function getScript();
 }

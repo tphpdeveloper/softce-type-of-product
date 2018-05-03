@@ -17,7 +17,7 @@ class BuildButton implements TypeButton
     private $types = null;
 
     /**
-     * BuildButton constructor. Get Eloquent collection from db
+     * BuildButton constructor. Get eloquent collection from types table
      * @param Collection $types
      */
     public function __construct(Collection $types)
@@ -34,9 +34,16 @@ class BuildButton implements TypeButton
         $buttons = '';
         if(count($this->types)) {
             foreach($this->types as $type){
-                $buttons .= view('typeofproduct::admin.button_group.button')
+                $view = view('typeofproduct::admin.button_group.button')
                     ->with('type', $type)
                     ->with('product_id', $product_id);
+                if($type->product_type){
+                    $data = $type->product_type->pluck('type_id', 'product_id')->toArray();
+                    if(count($data)){
+                        $view->with( 'enable', (isset($data[$product_id]) ? true : false ) );
+                    }
+                }
+                $buttons .= $view;
             }
         }
         return $buttons;

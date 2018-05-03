@@ -8,5 +8,6 @@ Route::group([
     ],function(){
 
     Route::resource( '/type', 'TypeController', [ 'as' => 'admin' ] );
+    Route::post('/type/product', ['as' => 'type.product', 'uses' => 'TypeController@setToProduct']);
 
 });

@@ -2,9 +2,11 @@
 
 namespace Softce\Type\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Mage2\Ecommerce\Http\Controllers\Admin\AdminController;
 use Mage2\Ecommerce\DataGrid\Facade as DataGrid;
 
+use Mage2\Ecommerce\Models\Database\Product;
 use Softce\Type\Http\Requests\TypeRequest;
 use Softce\Type\Module\Type;
 use File;
@@ -120,6 +122,19 @@ class TypeController extends AdminController
             return redirect()->route('admin.type.index')->with('notificationText', 'Тип товаров успешно удален');
         }
         return redirect()->route('admin.type.index')->with('errorText', 'Ошибка удаления типа товаров. Повторите попытку позже.');
+    }
+
+    public function setToProduct(Request $request){
+        //$product = Product::find($request->product_id);
+        $type = Type::find($request->type_id);
+
+        if($request->action == 'disable'){
+            $type->product()->detach($request->product_id);
+        }
+        else {
+            $type->product()->attach($request->product_id);
+        }
+        return 'ok';
     }
 
 }
