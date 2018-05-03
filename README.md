@@ -68,9 +68,9 @@ php artisan migrate
 //for use functional
 //use dependency injection in the method of building a list of products like
 
- public function index(... , TypeButton $typebutton){
+ public function index(... , TypeButton $typeofproduct){
  ...
-    $typebutton->getButton($model->id)
+    $typeofproduct->getButton($model->id)
     
     return view(....)
         ->with('dataGrid', ...)
