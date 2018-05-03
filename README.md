@@ -60,7 +60,7 @@ php artisan migrate
 
 ```
 
-#How to use in ProductController
+# How to use in ProductController
 
 **1.**
 ```php
