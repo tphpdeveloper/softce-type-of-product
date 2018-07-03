@@ -13,8 +13,8 @@ class TypeServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        $this->loadRoutesFrom(dirname(__DIR__) . '\routes\web.php');
-        $this->loadViewsFrom(dirname(__DIR__) . '\views', 'typeofproduct');
+        $this->loadRoutesFrom(dirname(__DIR__) . '/routes/web.php');
+        $this->loadViewsFrom(dirname(__DIR__) . '/views', 'typeofproduct');
         $this->loadMigrationsFrom(dirname(__DIR__) . '/migrations');
 
         $slider = DB::table('admin_menus')->where('name', 'Типы товаров')->first();
