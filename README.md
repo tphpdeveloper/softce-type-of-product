@@ -65,6 +65,10 @@ php artisan migrate
 **1.**
 ```php
 
+use Softce\Type\TypeButton\Contracts\TypeButton;
+
+...
+
 //for use functional
 //use dependency injection in the method of building a list of products like
 

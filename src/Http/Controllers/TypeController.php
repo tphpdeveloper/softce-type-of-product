@@ -17,7 +17,7 @@ class TypeController extends AdminController
 
     public function __construct()
     {
-        $this->middleware(['admin.auth', 'main_lang']);
+        $this->middleware(['admin.auth']);
     }
 
     /**
