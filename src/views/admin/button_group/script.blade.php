@@ -26,10 +26,12 @@
                         if(data === 'ok'){
                             if(action === 'disable'){
                                 elem.removeClass('active');
+                                elem.removeClass('btn-primary');
                                 elem.attr('data-active', 'enable');
                             }
                             else{
                                 elem.addClass('active');
+                                elem.addClass('btn-primary');
                                 elem.attr('data-active', 'disable');
                             }
                         }
