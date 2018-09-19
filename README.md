@@ -74,11 +74,18 @@ use Softce\Type\TypeButton\Contracts\TypeButton;
 
  public function index(... , TypeButton $typeofproduct){
  ...
-    $typeofproduct->getButton($model->id)
-    
-    return view(....)
-        ->with('dataGrid', ...)
-        ->with('typeofproduct_script', $typeofproduct->getScript());
+ 
+	->linkColumn('', [], function ($model) use ($typeofproduct){
+		return "<button .... </button>".$typeofproduct->getButton($model->id)."
+			....
+		";
+		
+		
+	}
+	
+	return view(....)
+			->with('dataGrid', ...)
+			->with('typeofproduct_script', $typeofproduct->getScript());
  }
  
 ```
