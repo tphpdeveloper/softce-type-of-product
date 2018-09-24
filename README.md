@@ -1,6 +1,10 @@
 # Work with module type of product
 
+**For using in admin panel**
+
 **1.**
+
+
 ```php
 //write to composer.json
 "require": {
@@ -59,6 +63,37 @@ php artisan migrate
 {{ route('admin.type.index') }}
 
 ```
+
+**For using on frontend**
+
+**1.**
+```php
+
+//add to model Product.php
+
+use Softce\Type\Module\Type;
+```
+
+**2.**
+```php
+//Add to class function 
+
+    public function types(){
+        return $this->belongsToMany(Type::class);
+    }
+```
+
+**3.**
+```php
+//When selected product, add method with(['types']). Like 
+
+Product::where('id', number_id)->with(['types'])->get();
+
+```
+
+
+
+
 
 # How to use in ProductController
 
