@@ -7,7 +7,7 @@
             var elem = $(this),
                 product_id = Number(elem.attr('data-product_id')),
                 type_id = Number(elem.attr('data-type_id')),
-                action = elem.attr('data-active').replace('^\s*', '').replace('\s*$'),
+                action = elem.attr('data-active').replace(/^\s*/, '').replace(/\s*$/, ''),
                 overlay = $(elem.children()[0]);
 
             overlay.show();
